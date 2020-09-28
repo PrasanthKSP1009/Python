@@ -1,0 +1,1245 @@
+Data Structures
+
+
+Stack Program:
+
+#include <stdio.h>
+#define CAPACITY 5
+int top=-1;
+int stack[CAPACITY];
+int isFull()
+{
+    if(top==CAPACITY-1)
+        return 1;
+    else
+        return 0;
+}
+int isEmpty()
+{
+    if(top==-1)
+        return 1;
+    else
+        return 0;
+}
+void push(int ele)
+{
+    if(!(isFull()))
+    {
+    top++;
+    stack[top]=ele;
+    }
+    else
+    {
+        printf("\nStack is Full, cannot insert element %d\n",ele);
+    }
+}
+void pop()
+{
+    int ele;
+    if(!(isEmpty()))
+    {
+        ele=stack[top];
+        top--;
+        printf("\nPopped Element is %d\n",ele);
+    }
+    else
+    {
+        printf("\nStack is Empty, No elements present in the stack\n");
+    }
+}
+void display()
+{
+    printf("\nDisplaying Elements\n");
+    for(int i=0;i<=top;i++)
+    {
+        printf("%d ",stack[i]);
+    }
+}
+void peek()
+{
+    printf("\nStack top element is %d\n",stack[top]);
+}
+int main()
+{
+    int ele,i;
+    while(i<=CAPACITY-1)
+    {
+        if(ele==-1)
+            break;
+        else
+            scanf("%d",&ele);
+            push(ele);
+    }
+    peek();
+    display();
+    pop();
+    peek();
+    display();
+    pop();
+    peek();
+    display();
+    return 0;
+}
+
+
+
+Linked List Program
+
+Inserting elements in the linked list at beginning,at end, at specific position
+Deleting elements in the linked list at beginning,at end, at specific position
+Printing the elements in the linked list
+Finding the length of the Linked list
+Reversing the linked list
+
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node *next;
+}*head = NULL, *rear=NULL;
+void insertatend(int dat)
+{
+    struct node* new = (struct node*)malloc(sizeof(struct node));
+    new->data=dat;
+    if (head == NULL)
+    {
+        head = rear = new;
+    }
+    else
+    {
+        rear -> next = new;
+        rear = new;
+    }
+     new -> next = NULL;
+}
+void insertatbegin(int dat)
+{
+    struct node* new = (struct node*)malloc(sizeof(struct node));
+    new->data=dat;
+   
+    if(head==NULL)
+    {
+        head=rear=new;
+    }
+    else
+    {
+        struct node* temp = head;
+        new->next=temp;
+        head=new;
+    }
+}
+
+int length(struct node *p)
+{
+    int count=0;
+    while(p!=NULL)
+    {
+        count++;
+        p=p->next;
+    }
+    return count;
+}
+
+void insertatpos(int dat,int pos)
+{
+    int len,i=1;
+    len=length(head);
+    if(pos>len)
+    {
+        if(pos==len+1)
+            insertatend(dat);
+        else
+            printf("\nCannot skip the node");
+    }
+        
+    else if(pos <=1)
+        insertatbegin(dat);
+    else
+        {
+            struct node* new =(struct node*)malloc(sizeof(struct node));
+            struct node*p=head;
+            while(i<pos-1)
+            {
+                p=p->next;
+               
+                i++;
+            }
+            printf("%d", p->data);
+            new->data = dat;
+            new -> next = p->next;
+            p -> next = new;
+        }
+}
+void deleteatbegin()
+{
+    head=head->next;
+   
+}
+void deleteatend(struct node*p)
+{
+    while(p->next->next!=NULL)
+    {
+        p=p->next;
+    }
+    p->next = NULL;
+}
+void deleteatpos(struct node *p,int pos)
+{
+    int len,i=1;
+    len=length(head);
+    if(pos<=1)
+        deleteatbegin();
+    else if(pos>=len){
+        if(pos==len)
+            deleteatend(head);
+        else
+            printf("\nNode present is %d",len);
+    }
+    else
+    {
+        while(i<pos-1)
+        {
+            p=p->next;
+            i++;
+        }
+        p->next=p->next->next;
+    }
+}
+void print(struct node* p)
+{
+    while(p->next!=NULL)
+    {
+        printf("%d -> ",p->data);
+        p=p->next;
+    }
+    printf("%d",p->data);
+}
+int main()
+{
+    int ch,dat,pos,len;
+    while(1)
+    {
+    printf("\nEnter your choice : ");
+    scanf("%d",&ch);
+    switch(ch)
+    {
+        case 1 : scanf("%d",&dat);
+                 insertatbegin(dat);
+                 break;
+        case 2 : scanf("%d",&dat);
+                 insertatend(dat);
+                 break;
+        case 3 : scanf("%d%d",&dat,&pos);
+                 insertatpos(dat,pos);
+                 break;
+        case 4 : deleteatbegin();
+                 break;
+        case 5 : deleteatend(head);
+                 break;
+        case 6 : scanf("%d",&pos);
+                 deleteatpos(head,pos);
+                 break;
+        case 7 : print(head);
+                 break;
+        case 8 : len=length(head);
+                 printf("The length of the linked list is : %d",len);
+                 break;
+        case 9 : exit(0);
+    }
+    }
+    return 0;
+}
+
+
+
+Reversing the Linked List 
+int main()
+{
+    int ch,dat,pos,len;
+    while(1)
+    {
+    printf("\
+
+
+Sorting algorithms:
+
+1.Selection Sort:
+
+Time Complexity:
+Best Case:
+O(n)
+Average Case:
+O(n^2)
+Worst Case:
+O(n^2)
+Program:
+#include <stdio.h>
+int main()
+{
+    int n;
+    scanf("%d",&n);
+    int arr[n];
+    for (int i=0;i<n;i++)
+    {
+        scanf("%d",&arr[i]);
+    }
+    for(int i=0;i<n-1;i++)
+    {
+        for(int j=i+1;j<n;j++)
+        {
+            if(arr[i]>arr[j]){int temp;
+            temp=arr[i];
+            arr[i]=arr[j];
+            arr[j]=temp;}
+        }
+    }
+    for (int i=0;i<n;i++)
+    {
+        printf("%d ",arr[i]);
+    }
+    return 0;
+}
+OUTPUT:
+10                                                                                                                                                                                                                                                    
+-1 -2 35 -8 25 0 10 5 1 4                                                                                                                                                                                                                      
+-8 -2 -1 0 1 4 5 10 25 35
+2.Insertion Sort:
+
+Time Complexity:
+Best Case:
+O(n)
+Average Case:
+O(n^2)
+Worst Case:
+O(n^2)
+
+Program:
+#include<stdio.h>
+int main()
+{
+    int n;
+    scanf("%d",&n);
+    int arr[n];
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d",&arr[i]);
+    }
+    for(int i=0;i<n;i++)
+    {
+        int hole,val;
+        val=arr[i];
+        hole=i;
+        while(hole>0 && arr[hole-1]>val)
+        {
+            arr[hole]=arr[hole-1];
+            hole--;
+        }
+        arr[hole]=val;
+    }
+    for(int i=0;i<n;i++)
+    {
+        printf("%d ",arr[i]);
+    }
+    return 0;
+}
+OUTPUT:
+10                                                                                                                            
+-1 -2 35 -8 25 0 10 5 1 4                                                                                                     
+-8 -2 -1 0 1 4 5 10 25 35 
+3.Bubble Sort:
+
+Time Complexity:
+Best Case:
+O(n)
+Average Case:
+O(n^2)
+Worst Case:
+O(n^2)
+
+Program:
+#include <stdio.h>
+int main()
+{
+    int n;
+    
+    scanf("%d",&n);
+    int arr[n];
+    for (int i=0;i<n;i++)
+        scanf("%d",&arr[i]);
+    for (int i=0;i<n-1;i++)
+    {
+        int flag=0;        
+        for(int j=0;j<n-i-1;j++)//j<n-i-1 is for reducing number of iterations
+        {
+
+            if(arr[j]>arr[j+1])
+            {
+                int temp=arr[j];
+                arr[j]=arr[j+1];
+                arr[j+1]=temp;
+                flag=1;
+                //printf("%d",n-i);
+            }
+        }        //printf("%d\n",i);
+        if (flag==0)
+            break;
+        
+    }
+    for (int i=0;i<n;i++)
+        printf("%d ",arr[i]);
+    return 0;
+}
+4.Merge Sort:
+
+Time Complexity:
+Best Case:
+O(nlogn)
+Average Case:
+O(nlogn)
+Worst Case:
+O(nlogn)
+
+Program:
+#include <stdio.h>
+#include <stdlib.h>
+void print(int *arr,int len)
+{
+    for (int i=0;i<len;i++)
+    {
+        printf("%d ",arr[i]);
+    }
+}
+void merge(int *l,int llen,int *r,int rlen,int *arr,int len)
+{
+    int i,j,k;
+    i=j=k=0;
+    while(i<llen && j<rlen){
+        if(l[i]<=r[j]){
+            arr[k]=l[i];
+            i++;
+        }
+        else
+        {
+            arr[k]=r[j];
+            j++;
+        }
+        k++;
+    }
+    while(i<llen)
+    {
+        arr[k]=l[i];
+        i++;k++;
+    }
+    while(j<rlen)
+    {
+        arr[k]=r[j];
+        j++;k++;
+    }
+}
+void mergeSort(int *arr,int len)
+{
+    int mid=len/2;
+    int r=len-mid;
+    if(len<2)
+        return;
+    int left[mid],right[r];
+    for(int i=0;i<mid;i++)
+    {
+        left[i]=arr[i];
+    }
+    for(int i=mid;i<len;i++)
+    {
+        right[i-mid]=arr[i];
+    }
+    mergeSort(left,mid);
+    mergeSort(right,r);
+    merge(left,mid,right,r,arr,len);
+}
+int main()
+{
+    int n;
+    scanf("%d",&n);
+    int *arr;
+    arr=(int*)malloc(n*sizeof(int));
+    for(int i=0;i<n;i++)
+        scanf("%d",&arr[i]);
+    mergeSort(arr,n);
+    print(arr,n);
+    return 0;
+}
+
+
+
+
+
+
+
+
+5.Quick Sort:
+
+Time Complexity:
+Best Case:
+O(nlogn)
+Average Case:
+O(nlogn)
+Worst Case:
+O(n^2)
+Program:
+
+#include <stdio.h>
+#include <stdlib.h>
+void print(int *arr,int len)
+{
+    for (int i=0;i<len;i++)
+        printf("%d ",arr[i]);
+}
+int partition(int *arr,int start,int end)
+{
+    int pivot=arr[end];
+    int pI=start;
+    for(int i=start;i<end;i++)
+    {
+        if(arr[i]<=pivot)
+        {
+            int temp=arr[i];
+            arr[i]=arr[pI];
+            arr[pI]=temp;
+            pI++;
+        }
+    }
+    int temp=arr[pI];
+    arr[pI]=arr[end];
+    arr[end]=temp;
+    return pI;
+}
+void QuickSort(int *arr,int start,int end)
+{
+    if(start<end)
+    {
+        int pI=partition(arr,start,end);
+        QuickSort(arr,start,pI-1);
+        QuickSort(arr,pI+1,end);
+    }
+}
+int main()
+{
+    int n;
+    scanf("%d",&n);
+    int *arr=(int *)malloc(n*sizeof(int));
+    for(int i=0;i<n;i++)
+        scanf("%d",&arr[i]);
+    QuickSort(arr,0,n-1);//passing array, start ,end index as argument
+    print(arr,n);
+    return 0;
+}
+
+
+##Data Structures in Python
+
+##Stack Data Structures
+
+##Stack Code
+
+Code:
+class stack:
+    def __init__(self):
+        self.items=[]
+    def push(self,item):
+        self.items.append(item)
+    def is_empty(self):
+        return self.items==[]
+    def pop(self):
+        if not self.is_empty():
+            return self.items.pop()
+        else:
+            return "Stack is Empty"
+    def peek(self):
+        if not self.is_empty():
+            return self.items[-1]
+    def print_list(self):
+        return self.items
+s=stack()
+s.push(5)
+s.push(4)
+s.push(3)
+print(s.peek())
+s.push(2)
+s.push(1)
+print(s.peek())
+print(s.print_list())
+while not s.is_empty():
+    print(s.pop(),end=" ")
+
+
+
+##Reversing String
+
+Code:
+
+class Stack:
+    def __init__(self):
+        self.items=[]
+    def push(self,item):
+        self.items.append(item)
+    def is_empty(self):
+        return self.items==[]
+    def pop(self):
+        return self.items.pop()
+def reverse(s,a):
+    rev=""
+    for i in a:
+        s.push(i)
+    while not s.is_empty():
+        rev+=s.pop()
+    return rev
+s=Stack()
+a=input()
+print(reverse(s,a))
+
+
+##Balancing Parentheses
+
+Code:
+
+class Stack:
+    def __init__(self):
+        self.items=[]
+    def push(self,item):
+        self.items.append(item)
+    def pop(self):
+        if not self.is_empty():
+            return self.items.pop()
+    def is_empty(self):
+        return self.items==[]
+def is_match(p1,p2):
+    if p1 == '{' and p2 == '}':
+        return True
+    elif p1 == '[' and p2 == ']':
+        return True
+    elif p1 == '(' and p2 == ')':
+        return True
+    else:
+        return False
+def is_balanced(paran):
+    s=Stack()
+    index=0
+    isPara=True
+    while index<len(paran) and isPara:
+        if paran[index] in '{[(':
+            s.push(paran[index])
+        else:
+            if s.is_empty():
+                return "Not Balanced"
+            else:
+                if is_match(s.pop(),paran[index]):
+                    pass
+                else:
+                    return "Not Balanced"
+        index+=1
+    return "Balanced"
+paran=input()
+print(is_balanced(paran))    
+
+Queue Data Structure
+
+Queue Code
+
+Code:
+
+class Queue:
+    def __init__(self):
+        self.items=[]
+    def enqueue(self,item):
+        self.items.insert(0,item)
+    def dequeue(self):
+        if not self.is_empty():
+            return self.items.pop()
+        else:
+            return "List is Empty"
+    def is_empty(self):
+        return self.items==[]
+    def print_que(self):
+        return self.items
+q=Queue()
+q.enqueue(5)
+q.enqueue(10)
+q.enqueue(15)
+print(q.print_que())
+print(q.dequeue())
+print(q.print_que())
+print(q.dequeue())
+print(q.print_que())
+print(q.dequeue())
+print(q.print_que())
+print(q.dequeue())
+
+LinkedList
+
+LinkedList inserting element at the position
+
+class Node:
+    def __init__(self,data):
+        self.data=data
+        self.next=None
+class LL:
+    def __init__(self):
+        self.head=None
+    def insert_at_end(self,data):
+        new_node=Node(data)
+        if self.head == None:
+            self.head=new_node
+            return
+        curr_node=self.head
+        while curr_node.next:
+            curr_node=curr_node.next
+        curr_node.next=new_node
+    def insert_at_begin(self,data):
+        new_node=Node(data)
+        new_node.next=self.head
+        self.head=new_node
+    def insert_at_pos(self,pos,data):
+        new_node=Node(data)
+        pre_node=self.head
+        for i in range(1,pos-1):
+            pre_node=pre_node.next
+        new_node.next=pre_node.next
+        pre_node.next=new_node
+    def print_ll(self):
+        node=self.head
+        while node.next:
+            print(node.data,end='->')
+            node=node.next
+        print(node.data)
+ll=LL()
+ll.insert_at_begin(30)
+ll.insert_at_begin(20)
+ll.insert_at_begin(10)
+ll.insert_at_begin(5)
+ll.insert_at_pos(3,12)
+ll.insert_at_end(40)
+ll.print_ll()
+
+LinkedList deleting elements
+
+class Node:
+    def __init__(self,data):
+        self.data=data
+        self.next=None
+class LL:
+    def __init__(self):
+        self.head=None
+    def insert_at_end(self,data):
+        new_node=Node(data)
+        if self.head == None:
+            self.head=new_node
+            return
+        curr_node=self.head
+        while curr_node.next:
+            curr_node=curr_node.next
+        curr_node.next=new_node
+    def insert_at_begin(self,data):
+        new_node=Node(data)
+        new_node.next=self.head
+        self.head=new_node
+    def insert_at_pos(self,pos,data):
+        new_node=Node(data)
+        pre_node=self.head
+        for i in range(1,pos-1):
+            pre_node=pre_node.next
+        new_node.next=pre_node.next
+        pre_node.next=new_node
+    def delete_at_begin(self):
+        self.head=self.head.next
+    def delete_at_end(self):
+        node=self.head
+        while node.next.next:
+            node=node.next
+        node.next=None
+    def delete_at_pos(self,pos):
+        node=self.head
+        for i in range(1,pos-1):
+            node=node.next
+        node.next=node.next.next
+    
+
+def print_ll(self):
+        node=self.head
+        while node.next:
+            print(node.data,end='->')
+            node=node.next
+        print(node.data)
+    
+ll=LL()
+ll.insert_at_begin(30)
+ll.insert_at_begin(20)
+ll.insert_at_begin(10)
+ll.insert_at_begin(5)
+ll.insert_at_pos(3,12)
+ll.insert_at_end(40)
+ll.delete_at_begin()
+ll.delete_at_end()
+ll.delete_at_pos(2)
+ll.print_ll()
+
+LinkedList Length
+
+def length_itr(self):# length iterative
+    cnt=0
+    node=self.head
+    while node:
+        cnt+=1
+        node=node.next
+    return cnt
+def length_rec(self,node):# length recursive
+    if node == None:
+        return 0
+    return 1+self.length_rec(node.next)
+
+LinkedList Reverse
+
+def reverse_ll(self,node):
+    if node.next==None:
+        self.head=node
+        return
+    self.reverse_ll(node.next)
+    node.next.next=node
+    node.next=None
+
+LinkedList Remove Duplicates
+
+def remove_dupli(self):
+        node=self.head
+        pre=None
+        val=dict()
+        while node:
+            if node.data in val:
+                pre.next=node.next
+                node=None
+            else:
+                val[node.data]=1
+                pre=node
+            node=pre.next
+
+LinkedList nth last node:
+
+def nth_last_node(self,pos):
+        p=self.head
+        q=self.head
+        for i in range(1,pos+1):
+            q=q.next
+        while p and q:
+            p=p.next
+            q=q.next
+        return p.data
+
+
+
+
+
+Circular Linked List
+
+Circular Linked List Code
+
+class Node:
+    def __init__(self,data):
+        self.data=data
+        self.next=None
+class CLL:
+    def __init__(self):
+        self.head=None
+    def insert_at_end(self,data):
+        new_node=Node(data)
+        if not self.head:
+            self.head=new_node
+            new_node.next=self.head
+        else:
+            cur_node=self.head
+            while cur_node.next != self.head:
+                cur_node=cur_node.next
+            cur_node.next=new_node
+            new_node.next=self.head
+    def insert_at_begin(self,data):
+        new_node=Node(data)
+        cur=self.head
+        new_node.next=self.head
+        if not self.head:
+            new_node.next=new_node
+        else:
+            while cur.next != self.head:
+                cur=cur.next
+            cur.next=new_node
+        self.head=new_node
+    def print_CLL(self):
+        node=self.head
+        while node:
+            print(node.data,end = ' ')
+            node=node.next
+            if node == self.head:
+                break
+cll=CLL()
+cll.insert_at_end(5)
+cll.insert_at_begin(2)
+cll.print_CLL()
+Doubly Linked List
+
+Doubly Linked List insertion and deletion Code:
+
+class Node:
+    def __init__(self,data):
+        self.data=data
+        self.next=None
+        self.prev=None
+class DLL:
+    def __init__(self):
+        self.head=None
+    def insert_at_end(self,data):
+        new_node=Node(data)
+        if self.head ==None:
+            self.head=new_node
+            new_node.prev=None
+        else:
+            cur=self.head
+            while cur.next:
+                cur=cur.next
+            cur.next=new_node
+            new_node.prev=cur
+            new_node.next=None
+    def insert_at_begin(self,data):
+        new_node=Node(data)
+        if self.head == None:
+            new_node.prev=None
+            self.head=new_node
+        else:
+            self.head.prev=new_node
+            new_node.next=self.head
+            new_node.prev=None
+            self.head=new_node
+    def insert_after_pos(self,pos,data):
+        new_node=Node(data)
+        if pos == 1:
+            self.insert_at_begin(data)
+        else:
+            cur=self.head
+            for i in range(1,pos):
+                cur=cur.next
+            nxt=cur.next
+            cur.next=new_node
+            new_node.next=nxt
+            new_node.prev=cur
+            nxt.prev=new_node
+    def insert_before_pos(self,pos,data):
+        new_node=Node(data)
+        if pos == 1 or pos == 2:
+            self.insert_at_begin(data)
+        else:
+            cur=self.head
+            for i in range(1,pos-2):
+                cur = cur.next
+            nxt=cur.next
+            cur.next=new_node
+            new_node.next=nxt
+            new_node.prev=cur
+            nxt.prev=new_node
+    def print_DLL(self):
+        node=self.head
+        while node.next:
+            print(node.data,end="->")
+            node=node.next
+        print(node.data)
+dll=DLL()
+dll.insert_at_begin(1)
+dll.insert_at_end(2)
+dll.insert_at_end(4)
+dll.insert_at_begin(0)
+dll.insert_after_pos(2,5)
+dll.insert_before_pos(3,3)
+dll.insert_before_pos(2,-1)
+dll.print_DLL()
+
+
+Doubly Linked List reverse Code
+
+def reverse(self):
+        temp=None
+        cur=self.head
+        while cur:
+            temp=cur.prev
+            cur.prev=cur.next
+            cur.next=temp
+            cur=cur.prev
+        if temp:
+            self.head=temp.prev
+
+Doubly Linked List Sum Pair Code
+
+def sum_pairs(self,sum_pair):
+    pair=[]
+    p=self.head
+    q=None
+    while p:
+        q=p.next
+        while q:
+            if p.data + q.data == sum_pair:
+                pair.append((p.data,q.data))
+            q=q.next
+        p=p.next
+    return pair
+Hash Table
+
+Hash table Code
+
+class HashTable:
+    def __init__(self):
+        self.Max=100
+        self.arr=[None for i in range(self.Max)]
+    #Hash Function to get the index value
+    def getHash(self,key):
+        h=0
+        for char in key:
+            h+=ord(char)
+        return h%self.Max
+    #Operator overloading to set the value 
+    #to the respective key
+    def __setitem__(self,key,val):
+        h=self.getHash(key)
+        self.arr[h]=val
+    #Operator overloading to get the value 
+    #to the respective key
+    def __getitem__(self,key):
+        h=self.getHash(key)
+        return self.arr[h]
+    #Operator overloading to delete the value 
+    #to the respective key
+    def __delitem__(self,key):
+        h=self.getHash(key)
+        self.arr[h]=None
+t=HashTable()
+t['march 6']=100
+t['march 7']=120
+t['march 10']=140
+print(t.arr)
+print(t['march 6'])
+del(t['march 6'])
+print(t.arr)
+
+
+
+
+Hash Table code with collision
+
+class HashTable:  
+    def __init__(self):
+        self.MAX = 10
+        self.arr = [[] for i in range(self.MAX)]
+        
+    def get_hash(self, key):
+        hash = 0
+        for char in key:
+            hash += ord(char)
+        return hash % self.MAX
+    
+    def __getitem__(self, key):
+        arr_index = self.get_hash(key)
+        for kv in self.arr[arr_index]:
+            if kv[0] == key:
+                return kv[1]
+            
+    def __setitem__(self, key, val):
+        h = self.get_hash(key)
+        found = False
+        for idx, element in enumerate(self.arr[h]):
+            if len(element)==2 and element[0] == key:
+                self.arr[h][idx] = (key,val)
+                found = True
+        if not found:
+            self.arr[h].append((key,val))
+        
+    def __delitem__(self, key):
+        arr_index = self.get_hash(key)
+        for index, kv in enumerate(self.arr[arr_index]):
+            if kv[0] == key:
+                print("del",index)
+                del self.arr[arr_index][index]
+t = HashTable()
+t["march 6"] = 310
+t["march 8"] = 67
+t["march 17"] = 63457
+print(t.arr)
+
+
+
+Trees
+Binary Tree
+
+Binary tree Code
+
+class Node:
+    def __init__(self,data):
+        self.data=data
+        self.left=None
+        self.right=None
+
+    def insert(self,data):
+        if self.data:
+            if data < self.data:
+                if self.left == None:
+                    self.left = Node(data)
+                else:
+                    self.left.insert(data)
+            elif data > self.data:
+                if self.right == None:
+                    self.right = Node(data)
+                else:
+                    self.right.insert(data)
+        else:
+            self.data = data
+    def print_BT(self):
+        if self.left:
+            self.left.print_BT()
+        print(self.data)
+        if self.right:
+            self.right.print_BT()
+a=int(input())
+lis=[int(a) for a in input().split()][:a]
+print(lis[1:])
+t=Node(lis[0])
+for i in lis[1:]:
+    t.insert(i)
+t.print_BT()
+
+Binary Tree Traversal
+
+class BinaryTreeTraversal:
+    def __init__(self,data):
+        self.data=data
+        self.left=None
+        self.right=None
+    def insert(self,data):
+        if self.data:
+            if data<self.data:
+                if self.left is None:
+                    self.left=BinaryTreeTraversal(data)
+                else:
+                    self.left.insert(data)
+            elif data > self.data:
+                if self.right is None:
+                    self.right=BinaryTreeTraversal(data)
+                else:
+                    self.right.insert(data)
+        else:
+            self.data=data
+    def printTree(self):
+        if self.left:
+            self.left.printTree()
+        print(self.data,end=" ")
+        if self.right:
+            self.right.printTree()
+    def inOrderTraversal(self,root):
+        if root:
+            self.inOrderTraversal(root.left)
+            print(root.data,end=" ")
+            self.inOrderTraversal(root.right)
+    def preOrderTraversal(self,root):
+        if root:
+            print(root.data,end=" ")
+            self.preOrderTraversal(root.left)
+            self.preOrderTraversal(root.right)
+    def postOrderTraversal(self,root):
+        if root:
+            self.postOrderTraversal(root.left)
+            self.postOrderTraversal(root.right)
+            print(root.data,end=" ")
+
+a=int(input())
+lis=[int(a) for a in input().split()][:a]
+t=BinaryTreeTraversal(lis[0])
+for i in lis[1:]:
+    t.insert(i)
+t.printTree()
+print("\nIn Order Traversal : ",end="")
+t.inOrderTraversal(t)
+print("\nPre Order Traversal : ",end=" ")
+t.preOrderTraversal(t)
+print("\nPost Order Traversal : ",end=" ")
+t.postOrderTraversal(t)
+
+Height of the Binary Tree
+
+def height(self,node):
+    if node is None:
+        return 0
+    lhei=self.height(node.left)
+    rhei=self.height(node.right)
+    return 1 + max(lhei,rhei)
+
+Level Order Traversal
+
+def levelOrderTraversal(self,root):
+        if root is None:
+            return None
+        queue=[]
+        queue.append(root)
+        while(len(queue) > 0): 
+            print (queue[0].data,end=" ") 
+            node = queue.pop(0) 
+            if node.left is not None: 
+                queue.append(node.left) 
+            if node.right is not None: 
+                queue.append(node.right)
+
+Size of the binary tree (Total No. of nodes in the tree)
+
+def size(self,root):
+        if root is None:
+            return 0
+        return (self.size(root.left) + 1 + self.size(root.right))
+Binary Search Tree
+
+Binary Search Tree Code
+
+class BST:
+    def __init__(self,data):
+        self.data=data
+        self.left=None
+        self.right=None
+    def insert(self,data):
+        if self.data:
+            if data < self.data:
+                if self.left is None:
+                    self.left=BST(data)
+                else:
+                    self.left.insert(data)
+            elif data > self.data:
+                if self.right is None:
+                    self.right = BST(data)
+                else:
+                    self.right.insert(data)
+        else:
+            self.data=data
+    def printTree(self):
+        if self.left:
+            self.left.printTree()
+        print(self.data,end=" ")
+        if self.right:
+            self.right.printTree()
+    def binarySearch(self,val):
+        if self.data == val:
+            return (str(val) + " is found")
+        elif val < self.data:
+            if self.left is None:
+                return (str(val) + " is not found")
+            return self.left.binarySearch(val)
+        else:
+            if self.right is None:
+                return (str(val) + " is not found")
+            return self.right.binarySearch(val)
+
+a=int(input())
+lis=[int(x) for x in input().split()][:a]
+ele=int(input())
+t=BST(lis[0])
+for i in lis[1:]:
+    t.insert(i)
+print(t.binarySearch(ele))
+t.printTree()
